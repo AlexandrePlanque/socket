@@ -47,6 +47,12 @@ public class ServeurSocket {
         //tant que le client ne retourne pas "q" on lit les messages des clients
         while (!(ligne = buffReader.readLine()).contentEquals("q")) {
             System.out.println(ligne);
+// utilisation du scanner (commenter la ligne avec "reçu par le serveur" pour éviter d'envoyer deux messages
+//            if(scan.hasNext()){
+//                reponse = scan.nextLine();
+//                out.println(reponse);
+//                out.flush();
+//            }
             //envoi d'un message au client pour ne pas qu'il reste en attente
             out.println("Reçu par le serveur.");
             out.flush();
