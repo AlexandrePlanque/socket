@@ -39,22 +39,21 @@ public class ServeurSocket {
         InputStreamReader reader = new InputStreamReader(in);
         BufferedReader buffReader = new BufferedReader(reader);
         String ligne = "";
-        
+
         PrintWriter out = new PrintWriter(client.getOutputStream());
-        out.println("La connexion est établie.");
-        out.flush();
-        out.println("Vous pouvez désormais m'écrire, si vous souhaitez arrêter taper 'q'.");
+        out.println("La connexion est établie, vous pouvez désormais communiquer avec le serveur, si vous souhaitez arrêter taper 'q'.");
+
         out.flush();
         //tant que le client ne retourne pas "q" on lit les messages des clients
         while (!(ligne = buffReader.readLine()).contentEquals("q")) {
             System.out.println(ligne);
-            if(scan.hasNext())
-                reponse = scan.nextLine();
-                out.println(reponse);
-                out.flush();
+            //envoi d'un message au client pour ne pas qu'il reste en attente
+            out.println("Reçu par le serveur.");
+            out.flush();
         }
-        
-        //fermeture des canaux
+
+        //fermeture des canaux avec un message pour le client
+        out.println("Vous êtes en cours de déconnexion, au revoir.");
         buffReader.close();
         reader.close();
         in.close();
